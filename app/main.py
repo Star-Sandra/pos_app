@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from app.database import get_db, create_tables, engine
+from app.routers import user_router, product_router, sales_router, payment_router
 
 
 # 1. Define the lifespan event manager (handles startup and shutdown)
@@ -31,3 +32,7 @@ def test_database_connection(db: Session = Depends(get_db)):
             detail=f"Database connection failed: {str(e)}"
         )
 
+app.include_router(user_router)
+app.include_router(product_router)
+app.include_router(sales_router)
+app.include_router(payment_router)
